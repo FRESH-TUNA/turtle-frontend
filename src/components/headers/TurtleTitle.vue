@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  name: 'TurtleTitle',
+  name: "TurtleTitle",
 };
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap");
 
 .turtle-title {
   display: flex;
@@ -25,6 +25,6 @@ export default {
 }
 
 .turtle-title p {
-  font-family: 'League Spartan', sans-serif;
+  font-family: "League Spartan", sans-serif;
 }
 </style>

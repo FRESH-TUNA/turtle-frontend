@@ -1,30 +1,24 @@
 <template>
   <v-container :fluid="fluid" class="pa-0">
-    <v-row justify='center'>
+    <v-row justify="center">
       <v-col cols="9">
         <slot name="content"></slot>
       </v-col>
     </v-row>
-</v-container>
+  </v-container>
 </template>
-    
+
 <script scoped>
-  export default {
-    name: 'AbstractCenterJustifiedComponent',
-    components: {
-  
+export default {
+  name: "AbstractCenterJustifiedComponent",
+  components: {},
+  props: {
+    fluid: {
+      default: true,
+      type: Boolean,
     },
-    props: {
-      fluid: {
-        default: true,
-        type: Boolean
-      }
-    },
-    data: () => ({
-  
-    }),
-    methods: {
-    
-    }
-  };
-  </script>
+  },
+  data: () => ({}),
+  methods: {},
+};
+</script>

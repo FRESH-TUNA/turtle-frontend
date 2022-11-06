@@ -8,18 +8,11 @@
 
 <script>
 export default {
-  name: 'RememberPage',
-  components: {
-
-  },
-  data: () => ({
-
-  }),
-  methods: {
-
-  }
+  name: "RememberPage",
+  components: {},
+  data: () => ({}),
+  methods: {},
 };
 </script>
 
-<style>
-</style>
+<style></style>
