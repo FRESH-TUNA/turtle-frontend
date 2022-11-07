@@ -1,7 +1,7 @@
 <template>
   <UniCenterPageTemplate>
     <template v-slot:main>
-      <h2>로그인</h2>
+      <TurtleTitle />
       <div class="social">
         <a
           href="http://localhost:8080/oauth2/authorization/google?redirect_url=http://localhost:5173"
@@ -14,46 +14,47 @@
       <hr class="my-12 remember-login-separator" />
       <p class="remember-login-title">리멤버 계정으로 로그인</p>
       <v-form ref="form" v-model="valid" lazy-validation>
-        <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field>
+        <v-text-field v-model="email" :rules="[rules.emailRequired]" label="이메일" required></v-text-field>
 
-        <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+        <v-text-field v-model="password" :rules="[rules.passwordRequired]" label="패스워드" required></v-text-field>
 
-        <v-select
-          v-model="select"
-          :items="items"
-          :rules="[(v) => !!v || 'Item is required']"
-          label="Item"
-          required
-        ></v-select>
-
-        <v-checkbox
-          v-model="checkbox"
-          :rules="[(v) => !!v || 'You must agree to continue!']"
-          label="Do you agree?"
-          required
-        ></v-checkbox>
-
-        <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate"> Validate </v-btn>
-
-        <v-btn color="error" class="mr-4" @click="reset"> Reset Form </v-btn>
-
-        <v-btn color="warning" @click="resetValidation"> Reset Validation </v-btn>
+        <v-btn color="success" class="mr-4" @click="signinRequest"> 로그인 </v-btn>
       </v-form>
     </template>
   </UniCenterPageTemplate>
 </template>
 
-<script>
-import UniCenterPageTemplate from "@/pages/UniCenterPageTemplate.vue";
+<script setup>
+import { ref } from "vue";
+import router from "@/router";
 
-export default {
-  name: "SigninPage",
-  components: {
-    UniCenterPageTemplate,
-  },
-  data: () => ({}),
-  methods: {},
+import UniCenterPageTemplate from "@/pages/UniCenterPageTemplate.vue";
+import TurtleTitle from "../components/TurtleTitle.vue";
+import { AuthStore } from "@/stores";
+import { ApiRequester } from "@/utils";
+import Urls from "@/consts/urls";
+
+/**
+ * data
+ */
+const authStore = AuthStore();
+const email = ref("");
+const password = ref("");
+const rules = {
+  passwordRequired: (value) => !!value || "비밀번호를 입력해주세요.",
+  emailRequired: (value) => !!value || "이메일을 입력해주세요.",
 };
+
+function signinSuccessHandler(newAccessToken) {
+  authStore.setAccessToken(newAccessToken);
+  router.push("/");
+}
+
+function signinRequest() {
+  ApiRequester.post(Urls.MAIN_API.AUTH.SIGNIN, { email: email.value, password: password.value }).then((response) =>
+    signinSuccessHandler(response.headers.authorization)
+  );
+}
 </script>
 
 <style></style>

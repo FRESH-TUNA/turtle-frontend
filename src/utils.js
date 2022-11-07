@@ -2,11 +2,11 @@
  * This file contains utilities functions
  */
 import axios from "axios";
-import { AuthStore } from "@/store";
+import { AuthStore } from "@/stores";
 
-import CONFIG from "./turtleConfig";
-import Urls from "./consts/urls";
-import STATUS_CODES from "./consts/statusCodes";
+import CONFIG from "@/turtleConfig";
+import Urls from "@/consts/urls";
+import STATUS_CODES from "@/consts/statusCodes";
 
 /**
  * External API Requesters
@@ -112,10 +112,13 @@ const AuthUtil = {
    * set accessToken to headers of config and return
    */
   setAccessTokenToConfig: (config) => {
+    const authStore = AuthStore();
     if (!config) config = {};
-    if (AuthStore.hasAccessToken()) {
+
+    console.log(authStore.accessToken);
+    if (authStore.hasAccessToken) {
       config.headers = {
-        Authorization: `${CONFIG.MAIN_API_TOKEN_PREFIX} ${AuthStore.accessToken.value}`,
+        Authorization: `${authStore.accessToken}`,
       };
     }
     return config;

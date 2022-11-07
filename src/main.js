@@ -1,6 +1,9 @@
 import { createApp } from "vue";
+import { createPinia } from "pinia";
+
 import App from "./App.vue";
 import router from "./router";
+
 import vuetify from "./plugins/vuetify";
 import { loadFonts } from "./plugins/webfontloader";
 
@@ -21,4 +24,6 @@ library.add(faBookmark);
 
 loadFonts();
 
-createApp(App).component("font-awesome-icon", FontAwesomeIcon).use(router).use(vuetify).mount("#app");
+const pinia = createPinia();
+
+createApp(App).component("font-awesome-icon", FontAwesomeIcon).use(router).use(vuetify).use(pinia).mount("#app");

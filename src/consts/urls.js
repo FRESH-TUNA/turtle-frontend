@@ -4,7 +4,7 @@ const URLS = {
   MAIN_API: {
     AUTH: {
       ROOT: CONFIG.MAIN_API_ROOT + "/auth",
-      SIGNIN: CONFIG.MAIN_API_ROOT + "/auth" + "/login",
+      SIGNIN: CONFIG.MAIN_API_ROOT + "/auth" + "/signin",
       REFRESH: CONFIG.MAIN_API_ROOT + "/auth" + "/refresh",
       SIGNUP: CONFIG.MAIN_API_ROOT + "/auth" + "/sign-up",
       USER: CONFIG.MAIN_API_ROOT + "/auth" + "/sign-up" + "/user",
