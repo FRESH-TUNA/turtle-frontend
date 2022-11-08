@@ -1,25 +1,23 @@
 <template>
   <UniCenterPageTemplate>
     <template v-slot:main>
-      <TurtleTitle />
-      <div class="social">
-        <a
-          href="http://localhost:8080/oauth2/authorization/google?redirect_url=http://localhost:5173"
-          class="btn btn-success active"
-          role="button"
-        >
-          구글 계정으로 로그인
-        </a>
-      </div>
-      <hr class="my-12 remember-login-separator" />
-      <p class="remember-login-title">리멤버 계정으로 로그인</p>
-      <v-form ref="form" v-model="valid" lazy-validation>
-        <v-text-field v-model="email" :rules="[rules.emailRequired]" label="이메일" required></v-text-field>
+      <AbstractCenterJustifiedComponent col-size="6" class="signin-page">
+        <template v-slot:content>
+          <TurtleTitle/>
 
-        <v-text-field v-model="password" :rules="[rules.passwordRequired]" label="패스워드" required></v-text-field>
+          <SocialLoginParts/>
+          
+          <hr class="my-12 remember-login-separator" />
+          <p class="mb-5">리멤버 계정으로 로그인</p>
+          <v-form ref="form" v-model="valid" lazy-validation class="signin-page form">
+            <v-text-field v-model="email" :rules="[rules.emailRequired]" label="이메일" variant="outlined">
+            </v-text-field>
+            <v-text-field v-model="password" :rules="[rules.passwordRequired]" label="패스워드" variant="outlined"></v-text-field>
+          </v-form>
 
-        <v-btn color="success" class="mr-4" @click="signinRequest"> 로그인 </v-btn>
-      </v-form>
+          <v-btn block color="success" @click="signinRequest"> 로그인 </v-btn>
+        </template>
+      </AbstractCenterJustifiedComponent>
     </template>
   </UniCenterPageTemplate>
 </template>
@@ -28,8 +26,11 @@
 import { ref } from "vue";
 import router from "@/router";
 
+import AbstractCenterJustifiedComponent from "../components/AbstractCenterJustifiedComponent.vue";
 import UniCenterPageTemplate from "@/pages/UniCenterPageTemplate.vue";
 import TurtleTitle from "../components/TurtleTitle.vue";
+import SocialLoginParts from "@/components/parts/SocialLoginParts.vue";
+
 import { AuthStore } from "@/stores";
 import { ApiRequester } from "@/utils";
 import Urls from "@/consts/urls";
@@ -45,6 +46,9 @@ const rules = {
   emailRequired: (value) => !!value || "이메일을 입력해주세요.",
 };
 
+/**
+ * methods
+ */
 function signinSuccessHandler(newAccessToken) {
   authStore.setAccessToken(newAccessToken);
   router.push("/");
@@ -57,4 +61,16 @@ function signinRequest() {
 }
 </script>
 
-<style></style>
+<style scoped>
+.signin-page {
+  max-width: 800px;
+}
+.signin-page .v-col > hr {
+  border-top: 1px solid #e6e6e6;
+}
+
+.signin-page .v-col > * {
+  width: 100%;
+  text-align: center;
+}
+</style>

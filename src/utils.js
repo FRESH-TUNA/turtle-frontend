@@ -6,7 +6,7 @@ import { AuthStore } from "@/stores";
 
 import CONFIG from "@/turtleConfig";
 import Urls from "@/consts/urls";
-import STATUS_CODES from "@/consts/statusCodes";
+//import STATUS_CODES from "@/consts/statusCodes";
 
 /**
  * External API Requesters
@@ -31,10 +31,10 @@ const ApiRequester = (() => {
   };
 
   const reRequestAtherTokenRefresh = (res) => {
-    return AuthUtil.refreshAccessToken().then((refreshResult) => {
-      if (!refreshResult) throw res;
-      return BaseApiRequester.request(AuthUtil.setAccessTokenToConfig(res.config));
-    });
+    return AuthUtil.refreshAccessToken()
+      .then(() => {
+        return BaseApiRequester.request(AuthUtil.setAccessTokenToConfig(res.response.config));
+      });
   };
 
   /**
@@ -44,30 +44,12 @@ const ApiRequester = (() => {
   const responseChecker = (responsePromise) => {
     return (
       responsePromise
-
-        /**
-         * 응답이 정상인 경우
-         */
-        .then((res) => {
-          /** 인증오류가 아니면 바로 반환 */
-          if (res.data.code !== STATUS_CODES.NOT_AUTHENTICATED) return res;
-
-          /**
-           * token refresh 시도후 다시 재요청한 Promise를 반환한다.
-           * 만약 실패시 처음 실패했던 response를 반환해준다.
-           */
-          return reRequestAtherTokenRefresh(res).catch(() => res);
-
-          /**
-           * 응답이 비정상인 경우
-           */
-        })
         .catch((err) => {
-          /** http 상태코드가 401이 아니면 에러를 다시 던진다. */
-          if (err.response.status !== 401) throw err;
+          /** http 상태코드가 P_001 (로그인 필요)이 아니면 에러를 다시 던진다. */
+          if (!err.response || err.response.data.status.code !== "P_001") throw err;
 
           /** token을 재발행하여 다시 시도한다. */
-          return reRequestAtherTokenRefresh(err.response);
+          return reRequestAtherTokenRefresh(err);
         })
     );
   };
@@ -97,14 +79,8 @@ const AuthUtil = {
 
     return BaseApiRequester.get(Urls.MAIN_API.AUTH.REFRESH, AuthUtil.setAccessTokenToConfig(config))
       .then((response) => {
-        if (response.data.code === STATUS_CODES.OK) {
-          AuthStore.setAccessToken(response);
-          return true;
-        }
-        return false;
-      })
-      .catch(() => {
-        return false;
+        AuthStore().setAccessToken(response.headers.Authorization);
+        return response;
       });
   },
 
@@ -115,7 +91,6 @@ const AuthUtil = {
     const authStore = AuthStore();
     if (!config) config = {};
 
-    console.log(authStore.accessToken);
     if (authStore.hasAccessToken) {
       config.headers = {
         Authorization: `${authStore.accessToken}`,

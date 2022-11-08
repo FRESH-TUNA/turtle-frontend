@@ -1,7 +1,7 @@
 <template>
   <v-container :fluid="fluid" class="pa-0">
-    <v-row justify="center">
-      <v-col cols="9">
+    <v-row justify="center" class="ma-0">
+      <v-col :cols="colSize" class="pa-0">
         <slot name="content"></slot>
       </v-col>
     </v-row>
@@ -16,6 +16,10 @@ export default {
     fluid: {
       default: true,
       type: Boolean,
+    },
+    colSize: {
+      default: "9",
+      type: String,
     },
   },
   data: () => ({}),
