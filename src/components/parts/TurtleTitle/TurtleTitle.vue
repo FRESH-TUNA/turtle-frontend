@@ -1,7 +1,7 @@
 <template>
   <div class="turtle-title">
-    <font-awesome-icon icon="fa-solid fa-bookmark" />
     <p>Turtle++</p>
+    <img src="./sea-turtle.png" />
   </div>
 </template>
 
@@ -16,9 +16,12 @@ export default {
 
 .turtle-title {
   display: inline-flex;
-  align-items: baseline;
+  align-items: end;
   justify-content: center;
-  gap: 0px 5px;
+}
+
+.turtle-title img {
+  width: 40px;
 }
 
 .turtle-title > * {

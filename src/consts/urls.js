@@ -6,7 +6,7 @@ const URLS = {
       ROOT: CONFIG.MAIN_API_ROOT + "/auth",
       SIGNIN: CONFIG.MAIN_API_ROOT + "/auth" + "/signin",
       REFRESH: CONFIG.MAIN_API_ROOT + "/auth" + "/refresh",
-      SIGNUP: CONFIG.MAIN_API_ROOT + "/auth" + "/sign-up",
+      SIGNUP: CONFIG.MAIN_API_ROOT + "/auth" + "/signup",
       USER: CONFIG.MAIN_API_ROOT + "/auth" + "/sign-up" + "/user",
       USERNAME_CHECK: CONFIG.MAIN_API_ROOT + "/auth" + "/sign-up" + "/username-check",
       ACADEMY: CONFIG.MAIN_API_ROOT + "/auth" + "/sign-up" + "/academy",

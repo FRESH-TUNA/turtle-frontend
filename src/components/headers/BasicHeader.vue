@@ -20,7 +20,7 @@
 
 <script>
 import AbstractCenterJustifiedComponent from "@/components/AbstractCenterJustifiedComponent.vue";
-import TurtleTitle from "../TurtleTitle.vue";
+import TurtleTitle from "@/components/parts/TurtleTitle/TurtleTitle.vue";
 
 export default {
   name: "BasicHeader",

@@ -1,17 +1,21 @@
 <template>
   <UniCenterPageTemplate>
     <template v-slot:main>
-      <AbstractCenterJustifiedComponent col-size="6" class="signin-page">
+      <AbstractCenterJustifiedComponent col-size="6" class="signup-page">
         <template v-slot:content>
           <TurtleTitle />
 
           <SocialLoginParts />
 
           <hr class="my-12 remember-login-separator" />
-          <p class="mb-5">리멤버 계정으로 로그인</p>
-          <v-form ref="form" v-model="valid" lazy-validation class="signin-page form" @keyup.enter="signinRequest">
-            <v-text-field v-model="email" :rules="[rules.emailRequired]" label="이메일" variant="outlined">
-            </v-text-field>
+          <p class="mb-5">리멤버 계정으로 회원가입</p>
+          <v-form ref="form" v-model="valid" lazy-validation class="signup-page form" @keyup.enter="signupRequest">
+            <v-text-field
+              v-model="email"
+              :rules="[rules.emailRequired]"
+              label="이메일"
+              variant="outlined"
+            ></v-text-field>
             <v-text-field
               v-model="password"
               :rules="[rules.passwordRequired]"
@@ -19,9 +23,16 @@
               variant="outlined"
               type="password"
             ></v-text-field>
+            <v-text-field
+              v-model="matchingpassword"
+              :rules="[rules.passwordRequired]"
+              label="패스워드 재입력"
+              variant="outlined"
+              type="password"
+            ></v-text-field>
           </v-form>
 
-          <v-btn block color="success" @click="signinRequest"> 로그인 </v-btn>
+          <v-btn block color="success" @click="signupRequest">회원가입</v-btn>
         </template>
       </AbstractCenterJustifiedComponent>
     </template>
@@ -47,6 +58,7 @@ import Urls from "@/consts/urls";
 const authStore = AuthStore();
 const email = ref("");
 const password = ref("");
+const matchingpassword = ref("");
 const rules = {
   passwordRequired: (value) => !!value || "비밀번호를 입력해주세요.",
   emailRequired: (value) => !!value || "이메일을 입력해주세요.",
@@ -55,27 +67,29 @@ const rules = {
 /**
  * methods
  */
-function signinSuccessHandler(newAccessToken) {
+function signupSuccessHandler(newAccessToken) {
   authStore.setAccessToken(newAccessToken);
   router.push("/");
 }
 
-function signinRequest() {
-  ApiRequester.post(Urls.MAIN_API.AUTH.SIGNIN, { email: email.value, password: password.value }).then((response) =>
-    signinSuccessHandler(response.headers.authorization)
-  );
+function signupRequest() {
+  ApiRequester.post(Urls.MAIN_API.AUTH.SIGNUP, {
+    email: email.value,
+    password: password.value,
+    matchingpassword: matchingpassword.value,
+  }).then((response) => signupSuccessHandler(response.headers.authorization));
 }
 </script>
 
 <style scoped>
-.signin-page {
+.signup-page {
   max-width: 800px;
 }
-.signin-page .v-col > hr {
+.signup-page .v-col > hr {
   border-top: 1px solid #e6e6e6;
 }
 
-.signin-page .v-col > * {
+.signup-page .v-col > * {
   width: 100%;
   text-align: center;
 }

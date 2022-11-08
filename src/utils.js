@@ -31,10 +31,9 @@ const ApiRequester = (() => {
   };
 
   const reRequestAtherTokenRefresh = (res) => {
-    return AuthUtil.refreshAccessToken()
-      .then(() => {
-        return BaseApiRequester.request(AuthUtil.setAccessTokenToConfig(res.response.config));
-      });
+    return AuthUtil.refreshAccessToken().then(() => {
+      return BaseApiRequester.request(AuthUtil.setAccessTokenToConfig(res.response.config));
+    });
   };
 
   /**
@@ -42,16 +41,13 @@ const ApiRequester = (() => {
    * 401 인 경우 token refresh 후 재요청
    */
   const responseChecker = (responsePromise) => {
-    return (
-      responsePromise
-        .catch((err) => {
-          /** http 상태코드가 P_001 (로그인 필요)이 아니면 에러를 다시 던진다. */
-          if (!err.response || err.response.data.status.code !== "P_001") throw err;
+    return responsePromise.catch((err) => {
+      /** http 상태코드가 P_001 (로그인 필요)이 아니면 에러를 다시 던진다. */
+      if (!err.response || err.response.data.status.code !== "P_001") throw err;
 
-          /** token을 재발행하여 다시 시도한다. */
-          return reRequestAtherTokenRefresh(err);
-        })
-    );
+      /** token을 재발행하여 다시 시도한다. */
+      return reRequestAtherTokenRefresh(err);
+    });
   };
 
   return {
@@ -77,11 +73,12 @@ const AuthUtil = {
   refreshAccessToken: () => {
     const config = { withCredentials: true };
 
-    return BaseApiRequester.get(Urls.MAIN_API.AUTH.REFRESH, AuthUtil.setAccessTokenToConfig(config))
-      .then((response) => {
+    return BaseApiRequester.get(Urls.MAIN_API.AUTH.REFRESH, AuthUtil.setAccessTokenToConfig(config)).then(
+      (response) => {
         AuthStore().setAccessToken(response.headers.Authorization);
         return response;
-      });
+      }
+    );
   },
 
   /**
