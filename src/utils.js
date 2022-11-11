@@ -96,5 +96,22 @@ const AuthUtil = {
     return config;
   },
 };
+class QueryStringBuilder {
+  // We define a static Builder class within `Car`
+  static Builder = class {
+    #queryData = [];
 
-export { BaseApiRequester, ApiRequester, AuthUtil };
+    addQuery(key, value) {
+      this.#queryData.push([key, value]);
+      return this;
+    }
+
+    build() {
+      if(this.#queryData.length === 0)
+        return "";
+      return "?" + this.#queryData.map(q => q[0]+"="+q[1]).join("&");
+    }
+  };
+}
+
+export { BaseApiRequester, ApiRequester, AuthUtil, QueryStringBuilder };

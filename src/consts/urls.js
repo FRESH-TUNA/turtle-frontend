@@ -12,13 +12,13 @@ const URLS = {
       ACADEMY: CONFIG.MAIN_API_ROOT + "/auth" + "/sign-up" + "/academy",
       TUTOR: CONFIG.MAIN_API_ROOT + "/auth" + "/sign-up" + "/tutor",
     },
-    USER: {
-      MY_INFO: CONFIG.MAIN_API_ROOT + "/api" + "/member",
-      UPDATE_MY_INFO: CONFIG.MAIN_API_ROOT + "/api" + "/member",
-    },
-    ACADEMY: {
-      POSTS: CONFIG.MAIN_API_ROOT + "/api" + "/posts",
-    },
+    USERS: {
+      ROOT: CONFIG.MAIN_API_ROOT + "/users",
+      ME: {
+        ROOT: CONFIG.MAIN_API_ROOT + "/users" + "/me",
+        QUESTIONS: CONFIG.MAIN_API_ROOT + "/users/me/questions",
+      }
+    }
   },
 };
 
