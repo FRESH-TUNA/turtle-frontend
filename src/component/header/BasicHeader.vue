@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import AbstractCenterJustifiedComponent from "@/components/AbstractCenterJustifiedComponent.vue";
+import AbstractCenterJustifiedComponent from "@/component/template/AbstractCenterJustifiedComponent.vue";
 import TurtleTitle from "../TurtleTitle.vue";
 
 export default {

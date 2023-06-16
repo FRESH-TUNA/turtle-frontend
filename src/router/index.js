@@ -1,20 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
-import RememberPage from "@/pages/RememberPage.vue";
-import SigninPage from "@/pages/SigninPage.vue";
+import HomePage from "@/page/HomePage.vue";
+import InventoryHomePage from "@/page/InventoryHomePage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
+      path: "/home",
       name: "home",
-      component: RememberPage,
+      component: HomePage,
     },
     {
-      path: "/signin",
-      name: "signin",
-      component: SigninPage,
-    },
+      path: "/inventory",
+      name: "inventory",
+      component: InventoryHomePage,
+    }
   ],
 });
 

@@ -28,11 +28,11 @@
 import { ref } from "vue";
 import router from "@/router";
 
-import UniCenterPageTemplate from "@/pages/UniCenterPageTemplate.vue";
-import TurtleTitle from "../components/TurtleTitle.vue";
-import { AuthStore } from "@/stores";
-import { ApiRequester } from "@/utils";
-import Urls from "@/consts/urls";
+import UniCenterPageTemplate from "@/page/template/MainCenterPageTemplate.vue";
+import TurtleTitle from "@/component/TurtleTitle.vue";
+import { AuthStore } from "@/store";
+import { ApiRequester } from "@/util";
+import Urls from "@/const/urls";
 
 /**
  * data

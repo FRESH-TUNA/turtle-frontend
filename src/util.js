@@ -2,11 +2,11 @@
  * This file contains utilities functions
  */
 import axios from "axios";
-import { AuthStore } from "@/stores";
+import { AuthStore } from "@/store";
 
 import CONFIG from "@/turtleConfig";
-import Urls from "@/consts/urls";
-import STATUS_CODES from "@/consts/statusCodes";
+import Urls from "@/const/urls";
+import STATUS_CODES from "@/const/statusCodes";
 
 /**
  * External API Requesters
