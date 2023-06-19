@@ -4,7 +4,7 @@
 import axios from "axios";
 import { AuthStore } from "@/store";
 
-import CONFIG from "@/turtleConfig";
+import CONFIG from "@/config";
 import Urls from "@/const/urls";
 import STATUS_CODES from "@/const/statusCodes";
 

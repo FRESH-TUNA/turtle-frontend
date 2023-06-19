@@ -7,7 +7,7 @@ const CONFIG = {
    * API handling
    */
   API_TIMEOUT: 5000,
-  MAIN_API_ROOT: import.meta.env.VITE_APP_MAIN_API_ROOT,
+  INVENTORY_API_ROOT: import.meta.env.VITE_APP_MAIN_API_ROOT,
 
   /**
    * Auth token prefix
