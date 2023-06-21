@@ -14,7 +14,7 @@ const router = createRouter({
     {
       path: "/inventory",
       name: "inventory",
-      component: InventoryHomePage,
+      component: InventoryHomePage
     },
     {
       path: "/inventory/sku/:id/in",

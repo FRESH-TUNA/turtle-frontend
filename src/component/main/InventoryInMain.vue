@@ -47,9 +47,7 @@
             </v-card>
           </v-dialog>
 
-          <v-overlay v-model="showLoading" class="align-center justify-center">
-            <v-progress-circular color="primary" indeterminate size="64"></v-progress-circular>
-          </v-overlay>
+          <Loading :showLoading="showLoading" />
         </v-col>
       </v-row>
     </v-container>
@@ -57,6 +55,8 @@
 </template>
 
 <script setup>
+import Loading from "@/component/etc/Loading.vue";
+
 import { ref, toRefs, onMounted } from "vue";
 import CONFIG from "@/config";
 import router from "@/router";
