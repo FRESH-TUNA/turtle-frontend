@@ -5,7 +5,7 @@ import axios from "axios";
 import { AuthStore } from "@/store";
 
 import CONFIG from "@/config";
-import Urls from "@/const/urls";
+import Urls from "@/const/apiTemplate";
 import STATUS_CODES from "@/const/statusCodes";
 
 /**

@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <v-layout class="d-flex flex-column">
-      <router-view />
-    </v-layout>
+    <router-view />
   </v-app>
 </template>
 
@@ -15,3 +13,7 @@ export default {
   }),
 };
 </script>
+
+<style>
+
+</style>

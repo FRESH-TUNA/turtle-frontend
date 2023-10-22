@@ -8,7 +8,7 @@
 
 <script setup>
 import { ref, toRefs, onMounted } from "vue";
-import BasicTemplate from "@/page/template/BasicPageTemplate.vue";
+import BasicTemplate from "@/component/page/template/BasicPageTemplate.vue";
 import InventoryInMain from "@/component/main/InventoryInMain.vue";
 
 const props = defineProps(["id"]);

@@ -1,4 +1,4 @@
-<template class="inventory-main">
+<template class="inventory-list-main">
   <v-main>
     <v-container>
       <v-row justify="start" class="flex-column">
@@ -39,9 +39,10 @@
 <script setup>
 import Loading from "@/component/etc/Loading.vue";
 import { ref, onMounted, watch } from "vue";
-import CONFIG from "@/config";
+
 import router from "@/router";
 import { ApiRequester } from "@/util";
+import API_TEMPLATE from "@/const/apiTemplate";
 
 const curPageState = ref(router.currentRoute.value.query.page);
 const curQueryState = ref(router.currentRoute.value.query.query);
@@ -56,7 +57,7 @@ const showLoading = ref(false);
  * functions
  */
 const inventorySearch = (page = 1, query = "", size = 2) =>
-  ApiRequester.get(CONFIG.INVENTORY_API_ROOT + `/inventory/sku?page=${page - 1}&query=${query}&size=${size}`);
+  ApiRequester.get(API_TEMPLATE.INVENTORY.LIST + `?page=${page - 1}&query=${query}&size=${size}`);
 
 const inventorySearchSuccessPostProcessor = (data) => {
   skus.value = data.page;
@@ -64,7 +65,6 @@ const inventorySearchSuccessPostProcessor = (data) => {
 };
 
 onMounted(() => {
-  console.log(curPageState.value);
   inventorySearch(curPageState.value, curQueryState.value, curSizeState.value).then((res) => {
     inventorySearchSuccessPostProcessor(res.data.data);
   });
@@ -72,7 +72,7 @@ onMounted(() => {
 
 watch(curPageState, async (newPageNumber, oldPageNumber) => {
   if (newPageNumber !== oldPageNumber) {
-    router.push(`/inventory?page=${newPageNumber}&query=${curQueryState.value}&size=${curSizeState.value}`);
+    await router.push(`/inventory?page=${newPageNumber}&query=${curQueryState.value}&size=${curSizeState.value}`);
 
     curPageState.value = newPageNumber;
 
