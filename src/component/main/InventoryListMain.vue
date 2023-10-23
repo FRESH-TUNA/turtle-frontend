@@ -12,9 +12,9 @@
                 <th class="text-left">바코드</th>
                 <th class="text-left">이름</th>
                 <th class="text-left">재고</th>
-                <th class="text-left">입고</th>
-                <th class="text-left">출고</th>
-                <th class="text-left">수정/삭제</th>
+                <th class="text-left"></th>
+                <th class="text-left"></th>
+                <th class="text-left"></th>
               </tr>
             </thead>
             <tbody>
@@ -23,6 +23,8 @@
                 <td>{{ item.barcode }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.count }}</td>
+                <td><v-btn>입고</v-btn></td>
+                <td><v-btn>출고</v-btn></td>
               </tr>
             </tbody>
           </v-table>

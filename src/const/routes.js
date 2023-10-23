@@ -1,6 +1,7 @@
 const ROUTES = {
     INVENTORY: {
-        LIST: { PATH: "/", NAME: "inventory-list" }
+        LIST: { PATH: "/", NAME: "sku-list" },
+        IN: { PATH: "/sku/:id/in", NAME: "sku-id-in" }
     }
 };
 

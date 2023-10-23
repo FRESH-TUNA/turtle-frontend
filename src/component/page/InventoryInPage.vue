@@ -1,27 +1,19 @@
 <template>
-  <BasicTemplate>
-    <template v-slot:main>
-      <InventoryInMain :id="props.id" />
-    </template>
-  </BasicTemplate>
+  <InventoryListPage/>
+  <InventoryInModal :id="id" />
 </template>
 
 <script setup>
-import { ref, toRefs, onMounted } from "vue";
-import BasicTemplate from "@/component/page/template/BasicPageTemplate.vue";
-import InventoryInMain from "@/component/main/InventoryInMain.vue";
+import InventoryInModal from "@/component/modal/InventoryInModal.vue";
+import InventoryListPage from "@/component/page/InventoryListPage.vue";
 
-const props = defineProps(["id"]);
-// const { id } = toRefs(props);
+defineProps({
+  id: {
+    Type: String,
+    required: true
+  }
+})
 
-// export default {
-//   name: "InventoryHomePage",
-//   components: {
-//     BasicTemplate,
-//   },
-//   data: () => ({}),
-//   methods: {},
-// };
 </script>
 
 <style></style>
