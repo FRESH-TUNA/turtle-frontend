@@ -10,6 +10,8 @@
   <footer class="justify-end">
     <slot name="footer"><h1>This is footer</h1></slot>
   </footer>
+
+  <slot name="other"></slot>
 </template>
 
 <script>

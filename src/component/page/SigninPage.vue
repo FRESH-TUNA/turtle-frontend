@@ -31,7 +31,7 @@ import router from "@/router";
 import UniCenterPageTemplate from "@/component/page/template/MainCenterPageTemplate.vue";
 import TurtleTitle from "@/component/etc/TurtleTitle.vue";
 import { AuthStore } from "@/store";
-import { ApiRequester } from "@/util";
+import { ApiRequester } from "@/util/apiRequester";
 import Urls from "@/const/apiTemplate";
 
 /**

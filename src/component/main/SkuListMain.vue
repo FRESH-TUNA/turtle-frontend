@@ -23,7 +23,11 @@
                 <td>{{ item.barcode }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.count }}</td>
-                <td><v-btn>입고</v-btn></td>
+                <td>
+                  <v-btn
+                      @click="router.push({ name: ROUTES.INVENTORY.IN.NAME, params: { id: item.id } })"
+                  >입고</v-btn>
+                </td>
                 <td><v-btn>출고</v-btn></td>
               </tr>
             </tbody>
@@ -39,50 +43,45 @@
 </template>
 
 <script setup>
-import Loading from "@/component/etc/Loading.vue";
-import { ref, onMounted, watch } from "vue";
-
+import { ref, onMounted } from "vue";
 import router from "@/router";
-import { ApiRequester } from "@/util";
-import API_TEMPLATE from "@/const/apiTemplate";
 
-const curPageState = ref(router.currentRoute.value.query.page);
-const curQueryState = ref(router.currentRoute.value.query.query);
-const curSizeState = ref(router.currentRoute.value.query.size);
+import Loading from "@/component/etc/Loading.vue";
+import ROUTES from "@/const/routes";
+import {onBeforeRouteUpdate} from "vue-router";
+import {searchSku} from "@/usecase/sku";
+
+const props = defineProps(["page", "size", "sort", "query"]);
 
 const skus = ref([]);
 const pageCount = ref(2);
-
 const showLoading = ref(false);
 
 /**
  * functions
  */
-const inventorySearch = (page = 1, query = "", size = 2) =>
-  ApiRequester.get(API_TEMPLATE.INVENTORY.LIST + `?page=${page - 1}&query=${query}&size=${size}`);
-
 const inventorySearchSuccessPostProcessor = (data) => {
   skus.value = data.page;
   pageCount.value = data.totalPageCount;
 };
 
+/**
+ * hooks
+ */
 onMounted(() => {
-  inventorySearch(curPageState.value, curQueryState.value, curSizeState.value).then((res) => {
-    inventorySearchSuccessPostProcessor(res.data.data);
+  searchSku(props.page, props.size, props.sort, props.query).then((data) => {
+    inventorySearchSuccessPostProcessor(data);
   });
 });
 
-watch(curPageState, async (newPageNumber, oldPageNumber) => {
-  if (newPageNumber !== oldPageNumber) {
-    await router.push(`/inventory?page=${newPageNumber}&query=${curQueryState.value}&size=${curSizeState.value}`);
-
-    curPageState.value = newPageNumber;
-
-    inventorySearch(newPageNumber, curQueryState.value, curSizeState.value).then((res) => {
-      inventorySearchSuccessPostProcessor(res.data.data);
+onBeforeRouteUpdate((to, from) => {
+  if(from.name === ROUTES.INVENTORY.IN.NAME) {
+    searchSku(props.page, props.size, props.sort, props.query).then((data) => {
+      inventorySearchSuccessPostProcessor(data);
     });
   }
-});
+  return true;
+})
 </script>
 
 <style scoped>
