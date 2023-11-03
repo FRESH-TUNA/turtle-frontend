@@ -5,7 +5,7 @@
     </template>
 
     <template v-slot:main>
-      <InventoryListMain :page="page" :size="size" :sort="sort" :query="query"/>
+      <ItemListMain :page="page" :size="size" :sort="sort" :query="query"/>
     </template>
 
     <template v-slot:footer>
@@ -13,7 +13,8 @@
     </template>
 
     <template v-slot:other>
-      <router-view name="skuInModal"/>
+      <router-view name="itemInModal"/>
+      <router-view name="itemOutModal"/>
     </template>
   </HCFPageTemplate>
 </template>
@@ -23,7 +24,7 @@ import HCFPageTemplate from "@/component/page/template/HCFPageTemplate.vue";
 
 import SellerSystemHeader from "@/component/header/InventorySystemHeader.vue";
 import InventorySystemFooter from "@/component/footer/InventorySystemFooter.vue";
-import InventoryListMain from "@/component/main/SkuListMain.vue";
+import ItemListMain from "@/component/main/ItemListMain.vue";
 
 defineProps(["page", "size", "sort", "query"]);
 </script>

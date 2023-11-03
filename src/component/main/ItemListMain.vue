@@ -9,26 +9,29 @@
             <thead>
               <tr>
                 <th class="text-left">아이디</th>
-                <th class="text-left">바코드</th>
                 <th class="text-left">이름</th>
-                <th class="text-left">재고</th>
-                <th class="text-left"></th>
+                <th class="text-left">카테고리</th>
+                <th class="text-left">콤보여부</th>
+                <th class="text-left">재고수량</th>
                 <th class="text-left"></th>
                 <th class="text-left"></th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in skus" :key="item.name">
+              <tr v-for="item in items" :key="item.name">
                 <td>{{ item.id }}</td>
-                <td>{{ item.barcode }}</td>
                 <td>{{ item.name }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.isCombo }}</td>
                 <td>{{ item.count }}</td>
                 <td>
                   <v-btn
-                      @click="router.push({ name: ROUTES.SKU.IN.NAME, params: { id: item.id } })"
+                      @click="router.push({ name: ROUTES.ITEM.IN.NAME, params: { id: item.id } })"
                   >입고</v-btn>
                 </td>
-                <td><v-btn>출고</v-btn></td>
+                <td><v-btn
+                    @click="router.push({ name: ROUTES.ITEM.OUT.NAME, params: { id: item.id } })"
+                >출고</v-btn></td>
               </tr>
             </tbody>
           </v-table>
@@ -49,19 +52,19 @@ import router from "@/router";
 import Loading from "@/component/etc/Loading.vue";
 import ROUTES from "@/const/routes";
 import {onBeforeRouteUpdate} from "vue-router";
-import {searchSku} from "@/port/sku";
+import {searchItem} from "@/port/item";
 
 const props = defineProps(["page", "size", "sort", "query"]);
 
-const skus = ref([]);
+const items = ref([]);
 const pageCount = ref(2);
 const showLoading = ref(false);
 
 /**
  * functions
  */
-const inventorySearchSuccessPostProcessor = (data) => {
-  skus.value = data.page;
+const itemSearchSuccessPostProcessor = (data) => {
+  items.value = data.page;
   pageCount.value = data.totalPageCount;
 };
 
@@ -69,19 +72,19 @@ const inventorySearchSuccessPostProcessor = (data) => {
  * hooks
  */
 onMounted(() => {
-  searchSku(props.page, props.size, props.sort, props.query).then((data) => {
-    inventorySearchSuccessPostProcessor(data);
+  searchItem(props.page, props.size, props.sort, props.query).then((data) => {
+    itemSearchSuccessPostProcessor(data);
   });
 });
 
 onBeforeRouteUpdate((to, from) => {
-  if(from.name === ROUTES.SKU.IN.NAME) {
-    searchSku(props.page, props.size, props.sort, props.query).then((data) => {
-      inventorySearchSuccessPostProcessor(data);
+  if(from.name === ROUTES.ITEM.IN.NAME || from.name === ROUTES.ITEM.OUT.NAME) {
+    searchItem(props.page, props.size, props.sort, props.query).then((data) => {
+      itemSearchSuccessPostProcessor(data);
     });
   }
   return true;
-})
+});
 </script>
 
 <style scoped>

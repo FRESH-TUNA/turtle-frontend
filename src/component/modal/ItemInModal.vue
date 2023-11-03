@@ -8,7 +8,7 @@
         <v-form ref="form">
           <h2>재고 입고</h2>
 
-          <h3 class="mt-5">SKU 정보</h3>
+          <h3 class="mt-5">아이템 정보</h3>
           <v-table fixed-header class="w-100 mt-5">
             <thead>
               <tr>
@@ -59,11 +59,12 @@
 import {ref, onMounted, watch} from "vue";
 import router from "@/router";
 
-import {showSku, skuIn, skuInReasons} from "@/port/sku";
+import { showSku, skuInReasons } from "@/port/sku";
+import { itemIn } from "@/port/item";
 
 const props = defineProps(["id"]);
 
-const isOpen = ref(true)
+const isOpen = ref(true);
 
 const sku = ref({});
 const count = ref(0);
@@ -80,7 +81,7 @@ const skuInService = () => {
   showLoading.value = true;
   isFailure.value = false;
 
-  skuIn(props.id, reason.value, count.value, "")
+  itemIn(props.id, reason.value, count.value, "")
     .then(() => {
       showLoading.value = false;
       close();
@@ -98,7 +99,7 @@ const close = () => { isOpen.value = false; }
 onMounted(() => {
   skuInReasons().then((res) => {
     reasons.value = res;
-    reason.value = reasons.value[0]
+    reason.value = reasons.value[0];
   });
 
   showSku(props.id).then((res) => { sku.value = res; });
@@ -107,5 +108,5 @@ onMounted(() => {
 watch(isOpen, async (next, prev) => {
   if(prev === true && next === false)
     router.back();
-})
+});
 </script>

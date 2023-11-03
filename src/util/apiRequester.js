@@ -7,7 +7,7 @@ import CONFIG from "@/config";
 import STATUS_CODES from "@/const/statusCodes";
 import ResponseUtil from "@/util/responseUtil";
 import AuthUtil from "@/util/authUtil";
-import {networkCommonErrorHandler} from "@/util/errorHandler";
+import { networkCommonErrorHandler } from "@/util/errorHandler";
 
 /**
  * External API Requesters

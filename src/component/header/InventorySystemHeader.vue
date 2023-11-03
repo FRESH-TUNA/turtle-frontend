@@ -31,7 +31,7 @@ const group = ref(false);
 const items = ref([
   {
     title: "재고 조회",
-    path: ROUTES.INVENTORY.LIST.PATH
+    path: ROUTES.SKU.LIST.PATH
   }
 ])
 

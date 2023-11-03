@@ -34,6 +34,10 @@ const skuIn = (id, reason="NEW", count, description="") => {
 
 const skuInReasons = () => {
   return ApiRequester.get(API_TEMPLATE.SKU.IN_REASONS);
+};
+
+const skuOutReasons = () => {
+    return ApiRequester.get(API_TEMPLATE.SKU.OUT_REASONS);
 }
 
-export { searchSku, showSku, skuIn, skuInReasons };
+export { searchSku, showSku, skuIn, skuInReasons, skuOutReasons };
