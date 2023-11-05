@@ -6,6 +6,7 @@ const ROUTES = {
     },
     ITEM: {
         LIST: { PATH: "/items", NAME: "item-list" },
+        SHOW: { PATH: "/items/:id", NAME: "item-id" },
         IN: { PATH: "/items/:id/in", NAME: "item-id-in" },
         OUT: { PATH: "/items/:id/out", NAME: "item-id-out" },
         NEW: { PATH: "/items/new", NAME: "item-new" }

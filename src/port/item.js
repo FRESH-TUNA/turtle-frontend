@@ -14,18 +14,19 @@ const searchItem = async (page = 1, size = 2, sort = "asc", query = "") => {
 }
 
 const showItem = (id) => {
-    const url = UriTemplateParser.builder(API_TEMPLATE.ITEM.SHOW)
+
+    const url = UriTemplateParser.builder(API_TEMPLATE.ITEM.ID)
         .addPathParam("id", id)
         .build();
 
-    return ApiRequester.get(url)
+    return ApiRequester.get(url);
 }
 
 
 const itemIn = (id, reason="NEW", count, description="") => {
     const url = UriTemplateParser.builder(API_TEMPLATE.ITEM.IN)
         .addPathParam("id", id)
-        .build()
+        .build();
 
     return ApiRequester.post(url, {
         reason, count, description
@@ -35,7 +36,7 @@ const itemIn = (id, reason="NEW", count, description="") => {
 const itemOut = (id, reason="SHIPPED", count, description="") => {
     const url = UriTemplateParser.builder(API_TEMPLATE.ITEM.OUT)
         .addPathParam("id", id)
-        .build()
+        .build();
 
     return ApiRequester.post(url, {
         reason, count, description

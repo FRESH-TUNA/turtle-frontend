@@ -9,6 +9,7 @@ import ItemListPage from "@/component/page/ItemListPage.vue";
 import ItemInModal from "@/component/modal/ItemInModal.vue";
 import NewSkuPage from "@/component/page/NewSkuPage.vue";
 import ItemOutModal from "@/component/modal/ItemOutModal.vue";
+import ItemShowPage from "@/component/page/ItemShowPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +44,12 @@ const router = createRouter({
       path: ROUTES.ITEM.NEW.PATH,
       name: ROUTES.ITEM.NEW.NAME,
       component: NewSkuPage,
+    },
+    {
+      path: ROUTES.ITEM.SHOW.PATH,
+      name: ROUTES.ITEM.SHOW.NAME,
+      props: true,
+      component: ItemShowPage,
     },
   ],
 });
