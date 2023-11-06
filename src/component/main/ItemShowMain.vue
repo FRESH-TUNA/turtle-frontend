@@ -1,10 +1,38 @@
 <template class="item-show-main">
   <v-main>
-    <v-container>
-      <v-row justify="start" class="flex-column">
+    <v-container class="justify-center flex-column">
+      <v-row class="mt-1">
         <v-col>
           <h2>아이템 상세</h2>
+        </v-col>
+        <v-col class="d-flex justify-end">
+          <v-btn
+              @click="router.push({ name: ROUTES.ITEM.IN.NAME, params: { id: item.id } })"
+              prepend-icon="mdi-check-circle"
+              class="mr-1"
+          >입고</v-btn>
 
+          <v-btn
+              @click="router.push({ name: ROUTES.ITEM.IN.NAME, params: { id: item.id } })"
+              prepend-icon="mdi-check-circle"
+              class="mr-1"
+          >출고</v-btn>
+
+          <v-btn
+              @click="router.push({ name: ROUTES.ITEM.IN.NAME, params: { id: item.id } })"
+              prepend-icon="mdi-check-circle"
+              class="mr-1"
+          >수정</v-btn>
+
+          <v-btn
+              @click="router.push({ name: ROUTES.ITEM.IN.NAME, params: { id: item.id } })"
+              prepend-icon="mdi-check-circle"
+          >삭제</v-btn>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
           <h3 class="mt-5">기본 정보</h3>
           <v-row class="mt-1">
             <v-col>
@@ -87,6 +115,10 @@
             </v-col>
           </v-row>
         </v-col>
+
+        <v-col>
+
+        </v-col>
       </v-row>
     </v-container>
 
@@ -96,7 +128,6 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-// import router from "@/router";
 
 import Loading from "@/component/etc/Loading.vue";
 import ROUTES from "@/const/routes";
@@ -105,14 +136,14 @@ import {showItem} from "@/port/item";
 
 const props = defineProps(["id"]);
 
-const item = ref({});
+const item = ref({sku: {price: {}, spec: {dimension: {}}}});
+
 const showLoading = ref(false);
 
 /**
  * functions
  */
 const itemSuccessPostProcessor = (data) => {
-  console.log(data);
   item.value = data;
 };
 

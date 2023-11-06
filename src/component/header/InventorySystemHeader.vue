@@ -7,7 +7,7 @@
     <v-spacer></v-spacer>
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" location="left" temporary>
+  <v-navigation-drawer v-model="drawer" location="left" permanent>
     <v-list>
       <v-list-item
         v-for="item in items"
@@ -31,7 +31,7 @@ const group = ref(false);
 const items = ref([
   {
     title: "재고 조회",
-    path: ROUTES.SKU.LIST.PATH
+    path: ROUTES.ITEM.LIST.PATH
   }
 ])
 
