@@ -3,7 +3,7 @@
     <v-container>
       <v-row justify="start" class="flex-column">
         <v-col>
-          <h2>재고 현황</h2>
+          <h2>SKU 조회</h2>
 
           <v-table fixed-header height="300px" class="w-100 mt-5">
             <thead>

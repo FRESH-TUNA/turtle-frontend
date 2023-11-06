@@ -3,7 +3,7 @@
     <v-container>
       <v-row justify="start" class="flex-column">
         <v-col>
-          <h2>재고 현황</h2>
+          <h2>아이템 조회</h2>
 
           <v-table fixed-header height="300px" class="w-100 mt-5">
             <thead>
@@ -20,7 +20,9 @@
             <tbody>
               <tr v-for="item in items" :key="item.name">
                 <td>{{ item.id }}</td>
-                <td>{{ item.name }}</td>
+                <td>
+                  <router-link :to="{ name: ROUTES.ITEM.SHOW.NAME, params: { id: item.id }}">{{ item.name }}</router-link>
+                </td>
                 <td>{{ item.category }}</td>
                 <td>{{ item.isCombo }}</td>
                 <td>{{ item.count }}</td>
@@ -36,7 +38,14 @@
             </tbody>
           </v-table>
 
-          <v-pagination v-model="curPageState" class="my-4" :length="pageCount"></v-pagination>
+          <MyPaginator
+              :page="pageNumber+1"
+              :size="size"
+              :max-page="5"
+              :total-items="totalCount"
+              :routing-callback="nextPageRouter"
+          />
+
         </v-col>
       </v-row>
     </v-container>
@@ -46,45 +55,71 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import {ref, onMounted, watch} from "vue";
 import router from "@/router";
 
 import Loading from "@/component/etc/Loading.vue";
 import ROUTES from "@/const/routes";
-import {onBeforeRouteUpdate} from "vue-router";
+import {onBeforeRouteUpdate, useRoute} from "vue-router";
 import {searchItem} from "@/port/item";
+import MyPaginator from "@/component/etc/MyPaginator.vue";
 
+const route = useRoute();
 const props = defineProps(["page", "size", "sort", "query"]);
 
 const items = ref([]);
-const pageCount = ref(2);
 const showLoading = ref(false);
+
+/**
+ * pages
+ */
+const count = ref(0);
+const pageNumber = ref(0);
+
+const totalPageCount = ref(0);
+const totalCount = ref(0);
 
 /**
  * functions
  */
 const itemSearchSuccessPostProcessor = (data) => {
   items.value = data.page;
-  pageCount.value = data.totalPageCount;
+  count.value = data.count;
+  pageNumber.value = data.pageNumber+1;
+  totalPageCount.value = data.totalPageCount;
+  totalCount.value = data.totalCount;
+};
+
+const nextPageRouter = (page) => {
+  router.push({ name: ROUTES.ITEM.LIST.NAME, query: { page: page, size: props.size, sort: props.sort }});
 };
 
 /**
  * hooks
  */
 onMounted(() => {
-  searchItem(props.page, props.size, props.sort, props.query).then((data) => {
+  searchItem(props.page-1, props.size, props.sort, props.query).then((data) => {
     itemSearchSuccessPostProcessor(data);
   });
 });
 
-onBeforeRouteUpdate((to, from) => {
-  if(from.name === ROUTES.ITEM.IN.NAME || from.name === ROUTES.ITEM.OUT.NAME) {
-    searchItem(props.page, props.size, props.sort, props.query).then((data) => {
-      itemSearchSuccessPostProcessor(data);
-    });
+
+watch(
+    () => [props.page, props.size, props.sort, props.query],
+    async () => {
+      searchItem(props.page-1, props.size, props.sort, props.query).then((data) => {
+        itemSearchSuccessPostProcessor(data);
+      });
   }
-  return true;
-});
+);
+
+
+// onBeforeRouteUpdate((to, from) => {
+//   searchItem(props.page-1, props.size, props.sort, props.query).then((data) => {
+//     itemSearchSuccessPostProcessor(data);
+//   });
+//   return true;
+// });
 </script>
 
 <style scoped>

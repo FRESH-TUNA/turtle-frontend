@@ -2,7 +2,7 @@ import { ApiRequester } from "@/util/apiRequester";
 import API_TEMPLATE from "@/const/apiTemplate";
 import UriTemplateParser from "@/util/uriTemplateParser";
 
-const searchItem = async (page = 1, size = 2, sort = "asc", query = "") => {
+const searchItem = async (page = 0, size = 2, sort = "asc", query = "") => {
 
     const url = UriTemplateParser.builder(API_TEMPLATE.ITEM.LIST)
         .addQueryParam("page", page)

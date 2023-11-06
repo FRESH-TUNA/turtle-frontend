@@ -19,12 +19,14 @@ const router = createRouter({
       path: ROUTES.ITEM.LIST.PATH,
       name: ROUTES.ITEM.LIST.NAME,
       component: ItemListPage,
-      props: (route) => ({
-        page: route.query.page === undefined ? 0 : route.query.page,
-        size: route.query.size === undefined ? 1 : route.query.size,
-        sort: route.query.sort === undefined ? "asc" : route.query.sort,
-        query: route.query.query === undefined ? "" : route.query.query,
-      }),
+      props: (route) => {
+        return {
+          page: route.query.page === undefined ? 1 : route.query.page,
+          size: route.query.size === undefined ? 1 : route.query.size,
+          sort: route.query.sort === undefined ? "asc" : route.query.sort,
+          query: route.query.query === undefined ? "" : route.query.query,
+        }
+      },
 
       children: [
         {
