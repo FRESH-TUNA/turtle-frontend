@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="10">
-          <h2>신규 아이템 등록</h2>
+          <h2>아이템 수정</h2>
 
           <h3 class="mt-5">기본 정보</h3>
           <v-row class="mt-1">
@@ -26,15 +26,15 @@
             </v-col>
           </v-row>
 
-<!--          <v-row class="mt-1">-->
-<!--            <v-col>-->
-<!--              콤보여부-->
-<!--            </v-col>-->
+          <!--          <v-row class="mt-1">-->
+          <!--            <v-col>-->
+          <!--              콤보여부-->
+          <!--            </v-col>-->
 
-<!--            <v-col cols="8">-->
-<!--              <v-text-field density="compact" v-model="isCombo" variant="outlined" required></v-text-field>-->
-<!--            </v-col>-->
-<!--          </v-row>-->
+          <!--            <v-col cols="8">-->
+          <!--              <v-text-field density="compact" v-model="isCombo" variant="outlined" required></v-text-field>-->
+          <!--            </v-col>-->
+          <!--          </v-row>-->
 
           <h3 class="mt-5">SKU(재고관리) 정보</h3>
           <v-row class="mt-1">

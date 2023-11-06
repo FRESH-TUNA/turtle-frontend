@@ -10,6 +10,7 @@ import ItemInModal from "@/component/modal/ItemInModal.vue";
 import NewItemPage from "@/component/page/NewItemPage.vue";
 import ItemOutModal from "@/component/modal/ItemOutModal.vue";
 import ItemShowPage from "@/component/page/ItemShowPage.vue";
+import EditItemPage from "@/component/page/EditItemPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,12 @@ const router = createRouter({
       name: ROUTES.ITEM.SHOW.NAME,
       props: true,
       component: ItemShowPage,
+    },
+    {
+      path: ROUTES.ITEM.EDIT.PATH,
+      name: ROUTES.ITEM.EDIT.NAME,
+      props: true,
+      component: EditItemPage,
     },
   ],
 });
