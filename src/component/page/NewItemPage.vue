@@ -5,7 +5,7 @@
     </template>
 
     <template v-slot:main>
-      <NewSkuMain/>
+      <NewItemMain/>
     </template>
 
     <template v-slot:footer>
@@ -19,7 +19,7 @@ import HCFPageTemplate from "@/component/page/template/HCFPageTemplate.vue";
 
 import SellerSystemHeader from "@/component/header/InventorySystemHeader.vue";
 import InventorySystemFooter from "@/component/footer/InventorySystemFooter.vue";
-import NewSkuMain from "@/component/main/NewSkuMain.vue";
+import NewItemMain from "@/component/main/NewItemMain.vue";
 </script>
 
 <style></style>
