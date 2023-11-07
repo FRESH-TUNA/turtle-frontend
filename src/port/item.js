@@ -43,4 +43,8 @@ const itemOut = (id, reason="SHIPPED", count, description="") => {
     });
 };
 
-export { searchItem, showItem, itemIn, itemOut };
+const newItem = (itemRequest) => {
+    return ApiRequester.post(API_TEMPLATE.ITEM.NEW, itemRequest)
+}
+
+export { searchItem, showItem, itemIn, itemOut, newItem };

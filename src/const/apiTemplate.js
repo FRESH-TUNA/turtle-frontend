@@ -12,7 +12,8 @@ const API_TEMPLATE = {
     LIST: CONFIG.INVENTORY_API_ROOT+"/items",
     ID: CONFIG.INVENTORY_API_ROOT+"/items/{id}",
     IN: CONFIG.INVENTORY_API_ROOT+"/items/{id}/in",
-    OUT: CONFIG.INVENTORY_API_ROOT+"/items/{id}/out"
+    OUT: CONFIG.INVENTORY_API_ROOT+"/items/{id}/out",
+    NEW: CONFIG.INVENTORY_API_ROOT+"/items"
   }
 };
 

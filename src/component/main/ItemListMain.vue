@@ -3,7 +3,19 @@
     <v-container>
       <v-row justify="start" class="flex-column">
         <v-col>
-          <h2>아이템 조회</h2>
+
+          <v-row class="mt-1">
+            <v-col>
+              <h2>아이템 조회</h2>
+            </v-col>
+            <v-col class="d-flex justify-end">
+              <v-btn
+                  @click="router.push({ name: ROUTES.ITEM.NEW.NAME })"
+                  prepend-icon="mdi-check-circle"
+                  class="mr-1"
+              >아이템 추가</v-btn>
+            </v-col>
+          </v-row>
 
           <v-table fixed-header height="300px" class="w-100 mt-5">
             <thead>
