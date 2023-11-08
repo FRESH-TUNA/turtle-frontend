@@ -56,4 +56,12 @@ const updateItem = (itemRequest, id) => {
     return ApiRequester.put(url, itemRequest)
 };
 
-export { searchItem, showItem, itemIn, itemOut, newItem, updateItem };
+const deleteItem = (id) => {
+    const url = UriTemplateParser.builder(API_TEMPLATE.ITEM.ID)
+        .addPathParam("id", id)
+        .build();
+
+    return ApiRequester.delete(url);
+};
+
+export { searchItem, showItem, itemIn, itemOut, newItem, updateItem, deleteItem };

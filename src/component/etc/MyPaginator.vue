@@ -40,18 +40,18 @@
 
 <script setup>
 
-import {ref} from "vue";
+import {ref, watch} from "vue";
 
 const props = defineProps(["page", "totalItems", "size", "maxPage", "routingCallback"]);
 
+const currentPage = ref(props.page+1);
 
-const currentPage = ref(props.page);
-
-// const emit = defineEmits(["pageChangedEvent"]);
-//
-// function pageChanged() {
-//   emit("pageChangedEvent");
-// }
+watch(
+    () => [props.page],
+    async () => {
+      currentPage.value = props.page+1;
+    }
+);
 </script>
 
 <style>

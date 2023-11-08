@@ -13,7 +13,7 @@
           >입고</v-btn>
 
           <v-btn
-              @click="router.push({ name: ROUTES.ITEM.IN.NAME, params: { id: item.id } })"
+              @click="router.push({ name: ROUTES.ITEM.OUT.NAME, params: { id: item.id } })"
               prepend-icon="mdi-check-circle"
               class="mr-1"
           >출고</v-btn>
@@ -25,7 +25,7 @@
           >수정</v-btn>
 
           <v-btn
-              @click="router.push({ name: ROUTES.ITEM.IN.NAME, params: { id: item.id } })"
+              @click="deleteProcedure"
               prepend-icon="mdi-check-circle"
           >삭제</v-btn>
         </v-col>
@@ -131,9 +131,9 @@ import { ref, onMounted } from "vue";
 
 import Loading from "@/component/etc/Loading.vue";
 import ROUTES from "@/const/routes";
-import {onBeforeRouteUpdate} from "vue-router";
-import {showItem} from "@/port/item";
-import router from "@/router";
+import {onBeforeRouteUpdate, useRouter} from "vue-router";
+import {deleteItem, showItem} from "@/port/item";
+// import router from "@/router";
 
 const props = defineProps(["id"]);
 
@@ -141,11 +141,22 @@ const item = ref({sku: {price: {}, spec: {dimension: {}}}});
 
 const showLoading = ref(false);
 
+const router = useRouter();
 /**
  * functions
  */
 const itemSuccessPostProcessor = (data) => {
   item.value = data;
+};
+
+const deleteProcedure = () => {
+  deleteItem(props.id)
+      .then(() => {
+        router.back()
+
+        if(router.currentRoute.value === ROUTES.ITEM.SHOW.NAME)
+          router.push({ name: ROUTES.ITEM.LIST.NAME });
+      });
 };
 
 /**

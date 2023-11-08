@@ -51,7 +51,7 @@
           </v-table>
 
           <MyPaginator
-              :page="pageNumber+1"
+              :page="curPage"
               :size="size"
               :max-page="5"
               :total-items="totalCount"
@@ -72,11 +72,10 @@ import router from "@/router";
 
 import Loading from "@/component/etc/Loading.vue";
 import ROUTES from "@/const/routes";
-import {onBeforeRouteUpdate, useRoute} from "vue-router";
+
 import {searchItem} from "@/port/item";
 import MyPaginator from "@/component/etc/MyPaginator.vue";
 
-const route = useRoute();
 const props = defineProps(["page", "size", "sort", "query"]);
 
 const items = ref([]);
@@ -86,10 +85,9 @@ const showLoading = ref(false);
  * pages
  */
 const count = ref(0);
-const pageNumber = ref(0);
-
 const totalPageCount = ref(0);
 const totalCount = ref(0);
+const curPage = ref(0);
 
 /**
  * functions
@@ -97,9 +95,10 @@ const totalCount = ref(0);
 const itemSearchSuccessPostProcessor = (data) => {
   items.value = data.page;
   count.value = data.count;
-  pageNumber.value = data.pageNumber+1;
+
   totalPageCount.value = data.totalPageCount;
   totalCount.value = data.totalCount;
+  curPage.value = data.pageNumber;
 };
 
 const nextPageRouter = (page) => {
