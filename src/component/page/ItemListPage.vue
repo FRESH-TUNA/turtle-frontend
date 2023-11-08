@@ -11,11 +11,6 @@
     <template v-slot:footer>
       <InventorySystemFooter/>
     </template>
-
-    <template v-slot:other>
-      <router-view name="itemInModal"/>
-      <router-view name="itemOutModal"/>
-    </template>
   </HCFPageTemplate>
 </template>
 

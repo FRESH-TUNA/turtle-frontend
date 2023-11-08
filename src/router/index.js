@@ -6,11 +6,11 @@ import { createRouter, createWebHistory } from "vue-router";
 import ROUTES from "@/const/routes";
 
 import ItemListPage from "@/component/page/ItemListPage.vue";
-import ItemInModal from "@/component/main/ItemInModal.vue";
 import NewItemPage from "@/component/page/NewItemPage.vue";
-import ItemOutModal from "@/component/main/ItemOutModal.vue";
 import ItemShowPage from "@/component/page/ItemShowPage.vue";
 import EditItemPage from "@/component/page/EditItemPage.vue";
+import ItemInPage from "@/component/page/ItemInPage.vue";
+import ItemOutPage from "@/component/page/ItemOutPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,22 +26,19 @@ const router = createRouter({
           sort: route.query.sort === undefined ? "asc" : route.query.sort,
           query: route.query.query === undefined ? "" : route.query.query,
         }
-      },
-
-      children: [
-        {
-          path: ROUTES.ITEM.IN.PATH,
-          name: ROUTES.ITEM.IN.NAME,
-          props: true,
-          components: { itemInModal: ItemInModal },
-        },
-        {
-          path: ROUTES.ITEM.OUT.PATH,
-          name: ROUTES.ITEM.OUT.NAME,
-          props: true,
-          components: { itemOutModal: ItemOutModal },
-        },
-      ],
+      }
+    },
+    {
+      path: ROUTES.ITEM.IN.PATH,
+      name: ROUTES.ITEM.IN.NAME,
+      props: true,
+      component: ItemInPage,
+    },
+    {
+      path: ROUTES.ITEM.OUT.PATH,
+      name: ROUTES.ITEM.OUT.NAME,
+      props: true,
+      component: ItemOutPage,
     },
     {
       path: ROUTES.ITEM.NEW.PATH,

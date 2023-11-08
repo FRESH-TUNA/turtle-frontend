@@ -1,11 +1,8 @@
 <template>
-  <v-row justify="center">
-    <v-dialog
-        v-model="isOpen"
-        width="1024"
-    >
-      <v-card class="pa-5">
-        <v-form ref="form">
+  <v-main>
+    <v-container>
+      <v-row>
+        <v-col cols="10">
           <h2>재고 출고</h2>
 
           <h3 class="mt-5">아이템 SKU 정보</h3>
@@ -39,10 +36,17 @@
               :rules="[(v) => !!v || '입고 사유를 선택해주세요']"
               required
           ></v-select>
-          <v-btn color="success" class="mt-4" block variant="flat" @click="itemOutService"> 출고 </v-btn>
-          <v-btn color="red-lighten-1" class="mt-4" block variant="flat" @click="close"> 취소 </v-btn>
-        </v-form>
-      </v-card>
+
+          <v-row>
+            <v-col>
+              <v-btn color="red-lighten-1" class="mt-4" block variant="flat" @click="close"> 취소 </v-btn>
+            </v-col>
+            <v-col>
+              <v-btn color="success" class="mt-4" block variant="flat" @click="itemOutService"> 출고 </v-btn>
+            </v-col>
+          </v-row>
+
+
       <!--      <v-alert-->
       <!--          closable-->
       <!--          type="error"-->
@@ -51,8 +55,10 @@
       <!--          class="mt-5"-->
       <!--          v-if="isFailure"-->
       <!--      ></v-alert>-->
-    </v-dialog>
+  </v-col>
   </v-row>
+  </v-container>
+  </v-main>
 </template>
 
 <script setup>
