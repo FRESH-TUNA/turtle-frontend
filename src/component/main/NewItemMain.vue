@@ -22,7 +22,14 @@
             </v-col>
 
             <v-col cols="6">
-              <v-text-field density="compact" v-model="category" variant="outlined" required></v-text-field>
+              <v-select
+                  density="compact"
+                  variant="outlined"
+                  v-model="category"
+                  :items="categories"
+                  :rules="[(v) => !!v || '무게 규격을 정해주세요']"
+                  required
+              ></v-select>
             </v-col>
           </v-row>
 
@@ -156,7 +163,7 @@
                 <v-col cols="6">
                   <v-text-field
                       density="compact"
-                      v-model="width"
+                      v-model="weight"
                       variant="outlined"
                       required
                   ></v-text-field>
@@ -198,11 +205,13 @@ import { ref } from "vue";
 import Loading from "@/component/etc/Loading.vue";
 import {newItem} from "@/port/item";
 import router from "@/router";
+import ROUTES from "@/const/routes";
 
 const showLoading = ref(false);
 
 const name = ref("");
-const category = ref("");
+const category = ref("FOOD");
+const categories = ref(["FOOD", "CLOTH"]);
 const description = ref("");
 
 /**
@@ -247,9 +256,9 @@ const createItem = () => {
     }
   };
 
-  console.log(itemRequest);
-  //newItem(itemRequest).then(() => router.back());
-}
+  newItem(itemRequest)
+      .then(() => router.push({ name: ROUTES.ITEM.LIST.NAME }));
+};
 
 
 </script>

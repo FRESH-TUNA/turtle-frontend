@@ -47,4 +47,13 @@ const newItem = (itemRequest) => {
     return ApiRequester.post(API_TEMPLATE.ITEM.NEW, itemRequest)
 }
 
-export { searchItem, showItem, itemIn, itemOut, newItem };
+const updateItem = (itemRequest, id) => {
+
+    const url = UriTemplateParser.builder(API_TEMPLATE.ITEM.ID)
+        .addPathParam("id", id)
+        .build();
+
+    return ApiRequester.put(url, itemRequest)
+};
+
+export { searchItem, showItem, itemIn, itemOut, newItem, updateItem };

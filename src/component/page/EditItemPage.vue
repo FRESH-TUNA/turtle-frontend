@@ -5,7 +5,7 @@
     </template>
 
     <template v-slot:main>
-      <EditItemMain/>
+      <EditItemMain :id="id"/>
     </template>
 
     <template v-slot:footer>
@@ -21,6 +21,8 @@ import SellerSystemHeader from "@/component/header/InventorySystemHeader.vue";
 import InventorySystemFooter from "@/component/footer/InventorySystemFooter.vue";
 
 import EditItemMain from "@/component/main/EditItemMain.vue";
+
+defineProps(["id"]);
 </script>
 
 <style></style>

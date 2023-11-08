@@ -6,9 +6,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import ROUTES from "@/const/routes";
 
 import ItemListPage from "@/component/page/ItemListPage.vue";
-import ItemInModal from "@/component/modal/ItemInModal.vue";
+import ItemInModal from "@/component/main/ItemInModal.vue";
 import NewItemPage from "@/component/page/NewItemPage.vue";
-import ItemOutModal from "@/component/modal/ItemOutModal.vue";
+import ItemOutModal from "@/component/main/ItemOutModal.vue";
 import ItemShowPage from "@/component/page/ItemShowPage.vue";
 import EditItemPage from "@/component/page/EditItemPage.vue";
 

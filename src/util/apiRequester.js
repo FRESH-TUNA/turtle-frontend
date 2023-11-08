@@ -22,6 +22,7 @@ const BaseApiRequester = (() => {
     post: (url, data, config) => AxiosInstance.post(url, data, config),
     delete: (url, config) => AxiosInstance.delete(url, config),
     patch: (url, data, config) => AxiosInstance.patch(url, data, config),
+    put: (url, data, config) => AxiosInstance.put(url, data, config),
     request: (config) => AxiosInstance.request(config),
   };
 })();
@@ -67,6 +68,8 @@ const ApiRequester = (() => {
     get: (url, config) => apiResponseFilter(BaseApiRequester.get(url, AuthUtil.setAccessTokenToConfig(config))),
 
     post: (url, data) => apiResponseFilter(BaseApiRequester.post(url, data, makeDefaultConfig())),
+
+    put: (url, data) => apiResponseFilter(BaseApiRequester.put(url, data, makeDefaultConfig())),
 
     delete: (url) => apiResponseFilter(BaseApiRequester.delete(url, makeDefaultConfig())),
 

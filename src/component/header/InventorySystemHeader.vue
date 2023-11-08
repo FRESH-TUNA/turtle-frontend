@@ -7,7 +7,7 @@
     <v-spacer></v-spacer>
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" location="left" permanent>
+  <v-navigation-drawer v-model="drawer" location="left" :permanent="true">
     <v-list>
       <v-list-item
         v-for="item in items"
@@ -26,7 +26,7 @@ import { ref, watch } from "vue";
 import router from "@/router";
 import ROUTES from "@/const/routes";
 
-const drawer = ref(false);
+const drawer = ref(true);
 const group = ref(false);
 const items = ref([
   {

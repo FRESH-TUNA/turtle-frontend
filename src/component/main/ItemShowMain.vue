@@ -19,7 +19,7 @@
           >출고</v-btn>
 
           <v-btn
-              @click="router.push({ name: ROUTES.ITEM.IN.NAME, params: { id: item.id } })"
+              @click="router.push({ name: ROUTES.ITEM.EDIT.NAME, params: { id: item.id } })"
               prepend-icon="mdi-check-circle"
               class="mr-1"
           >수정</v-btn>
@@ -133,6 +133,7 @@ import Loading from "@/component/etc/Loading.vue";
 import ROUTES from "@/const/routes";
 import {onBeforeRouteUpdate} from "vue-router";
 import {showItem} from "@/port/item";
+import router from "@/router";
 
 const props = defineProps(["id"]);
 
