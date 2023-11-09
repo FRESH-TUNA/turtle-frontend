@@ -25,8 +25,8 @@ const router = createRouter({
           size: route.query.size === undefined ? 4 : route.query.size,
           sort: route.query.sort === undefined ? "asc" : route.query.sort,
           query: route.query.query === undefined ? "" : route.query.query,
-        }
-      }
+        };
+      },
     },
     {
       path: ROUTES.ITEM.IN.PATH,

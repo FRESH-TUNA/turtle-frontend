@@ -8,6 +8,7 @@ const searchItem = async (page = 0, size = 2, sort = "asc", query = "") => {
         .addQueryParam("page", page)
         .addQueryParam("size", size)
         .addQueryParam("sort", sort)
+        .addQueryParam("query", query)
         .build();
 
     return ApiRequester.get(url);

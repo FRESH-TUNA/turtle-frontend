@@ -8,12 +8,29 @@
             <v-col>
               <h2>아이템 조회</h2>
             </v-col>
-            <v-col class="d-flex justify-end">
+            <v-col class="d-flex justify-end align-baseline">
+              <v-text-field
+                  density="compact"
+                  v-model="searchQuery"
+                  variant="outlined"
+                  label="이름으로 검색"
+                  :loading="searchLoading"
+                  @click:append-inner="querySearch"
+                  append-inner-icon="mdi-magnify"
+                  required
+                  class="mr-2"
+              />
               <v-btn
                   @click="router.push({ name: ROUTES.ITEM.NEW.NAME })"
-                  prepend-icon="mdi-check-circle"
-                  class="mr-1"
-              >아이템 추가</v-btn>
+                  variant="plain"
+                  class="pr-0 pl-0"
+                  size="53"
+              >
+                <v-icon
+                    size="53"
+                    icon="mdi-plus-box"
+                ></v-icon>
+              </v-btn>
             </v-col>
           </v-row>
 
@@ -55,7 +72,7 @@
               :size="size"
               :max-page="5"
               :total-items="totalCount"
-              :routing-callback="nextPageRouter"
+              :routing-callback="pageChangeRouter"
           />
 
         </v-col>
@@ -67,7 +84,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted, watch} from "vue";
+import {ref, watch, onMounted} from "vue";
 import router from "@/router";
 
 import Loading from "@/component/etc/Loading.vue";
@@ -77,8 +94,10 @@ import {searchItem} from "@/port/item";
 import MyPaginator from "@/component/etc/MyPaginator.vue";
 
 const props = defineProps(["page", "size", "sort", "query"]);
-
+const searchQuery = ref("");
 const items = ref([]);
+
+const searchLoading = ref(false);
 const showLoading = ref(false);
 
 /**
@@ -99,10 +118,21 @@ const itemSearchSuccessPostProcessor = (data) => {
   totalPageCount.value = data.totalPageCount;
   totalCount.value = data.totalCount;
   curPage.value = data.pageNumber;
+
+  searchLoading.value = false;
 };
 
-const nextPageRouter = (page) => {
-  router.push({ name: ROUTES.ITEM.LIST.NAME, query: { page: page, size: props.size, sort: props.sort }});
+const querySearch = () => {
+  searchLoading.value = true;
+  pageChangeRouter(1);
+};
+
+
+const pageChangeRouter = (page) => {
+  router.push({
+    name: ROUTES.ITEM.LIST.NAME,
+    query: { page: page, size: props.size, sort: props.sort, query: searchQuery.value },
+  });
 };
 
 /**
@@ -118,19 +148,13 @@ onMounted(() => {
 watch(
     () => [props.page, props.size, props.sort, props.query],
     async () => {
+      console.log(props.query);
+
       searchItem(props.page-1, props.size, props.sort, props.query).then((data) => {
         itemSearchSuccessPostProcessor(data);
       });
   }
 );
-
-
-// onBeforeRouteUpdate((to, from) => {
-//   searchItem(props.page-1, props.size, props.sort, props.query).then((data) => {
-//     itemSearchSuccessPostProcessor(data);
-//   });
-//   return true;
-// });
 </script>
 
 <style scoped>
